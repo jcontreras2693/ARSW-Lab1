@@ -9,6 +9,12 @@ package edu.eci.arsw.threads;
  *
  * @author hcadavid
  */
-public class CountThread {
-    
-}
+public class CountThread extends Thread {
+
+    private int inicio;
+    private int fin;
+
+    public CountThread(int inicio, int fin){
+
+    }
+

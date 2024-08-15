@@ -22,13 +22,13 @@
    	3. Ejecute y revise la salida por pantalla.
    	   - Al ejecutar los hilos con start obtenemos la siguiente salida 
  
- ![image](https://github.com/user-attachments/assets/12eae252-924d-4471-a678-9f6cfa5cc1ce)
+ 	![image](https://github.com/user-attachments/assets/12eae252-924d-4471-a678-9f6cfa5cc1ce)
 
 
  	4. Cambie el incio con 'start()' por 'run()'. Cómo cambia la salida?, por qué?.
 	   - Los números se escriben en orden ya que se ejecuta cada CountThread uno por uno y no al tiempo. 
 	
- ![image](https://github.com/user-attachments/assets/88cb9a55-7f48-4bb2-b20e-68fdab9976d4)
+ 	![image](https://github.com/user-attachments/assets/88cb9a55-7f48-4bb2-b20e-68fdab9976d4)
 
 
 **Parte II - Ejercicio Black List Search**

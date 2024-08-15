@@ -13,13 +13,13 @@ public class CountThreadsMain {
 
     public static void main(String a[]){
 
-        CountThread hilo1 = new CountThread();
-        CountThread hilo2 = new CountThread();
-        CountThread hilo3 = new CountThread();
+        CountThread hilo1 = new CountThread(0, 99);
+        CountThread hilo2 = new CountThread(100, 199);
+        CountThread hilo3 = new CountThread(200,9);
 
-        hilo1.run();
-        hilo2.run();
-        hilo3.run();
+        hilo1.start();
+        hilo2.start();
+        hilo3.start();
 
 
     }

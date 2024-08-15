@@ -21,6 +21,7 @@
 	2. Inicie los tres hilos con 'start()'.
 	3. Ejecute y revise la salida por pantalla. 
 	4. Cambie el incio con 'start()' por 'run()'. Cómo cambia la salida?, por qué?.
+	   - Los números se escriben en orden ya que se ejecuta cada CountThread uno por uno y no al tiempo. 	
 
 **Parte II - Ejercicio Black List Search**
 

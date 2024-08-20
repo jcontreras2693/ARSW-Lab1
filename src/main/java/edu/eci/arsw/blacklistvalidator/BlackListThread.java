@@ -38,6 +38,7 @@ public class BlackListThread extends Thread{
                 ocurrencesCount++;
             }
         }
+
     }
 
     public ArrayList<Integer> getBlackListOcurrences(){

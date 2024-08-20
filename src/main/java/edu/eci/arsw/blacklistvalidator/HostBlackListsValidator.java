@@ -91,8 +91,10 @@ public class HostBlackListsValidator {
                 fin += delta;
             }
         }
+        int checkedListsCount = 0;
         for (int i = 0; i < numThreads; i++) {
             BlackListThread obj = threads.get(i);
+            checkedListsCount +=obj.getCheckedListsCount();
             try{
                 obj.join();
                 blackListOcurrences.addAll(obj.getBlackListOcurrences());
@@ -106,6 +108,9 @@ public class HostBlackListsValidator {
         else{
             skds.reportAsTrustworthy(ipaddress);
         }
+
+        LOG.log(Level.INFO, "Checked Black Lists:{0} of {1}", new Object[]{checkedListsCount, skds.getRegisteredServersCount()});
+
         return blackListOcurrences;
     }
 

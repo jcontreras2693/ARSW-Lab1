@@ -45,4 +45,7 @@ public class BlackListThread extends Thread{
         return blackListOcurrences;
     }
 
+    public int getCheckedListsCount(){
+        return checkedListsCount;
+    }
 }

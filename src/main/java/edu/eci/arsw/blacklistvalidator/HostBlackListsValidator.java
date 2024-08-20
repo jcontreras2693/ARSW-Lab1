@@ -79,13 +79,19 @@ public class HostBlackListsValidator {
             fin += fin;
         }
         for (int i = 0; i < numThreads; i++) {
-            blackListOcurrences.addAll(threads.get(i).getBlackListOcurrences());
+            BlackListThread obj = threads.get(i);
+            try{
+                obj.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            blackListOcurrences.addAll(obj.getBlackListOcurrences());
+            System.out.println("Thread number " + i);
         }
+        System.out.println("Segunda etapa terminada");
         return blackListOcurrences;
     }
     
     private static final Logger LOG = Logger.getLogger(HostBlackListsValidator.class.getName());
-    
-    
     
 }

@@ -65,6 +65,9 @@ public class HostBlackListsValidator {
         return blackListOcurrences;
     }
 
+    /*
+    Se hace una sobrecarga de la función, por comodidad y para no deshacernos del anterior código.
+    */
     public List<Integer> checkHost(String ipaddress, int numThreads){
         ArrayList<BlackListThread> threads = new ArrayList<BlackListThread>();
         ArrayList<Integer> blackListOcurrences= new ArrayList<Integer>();
@@ -73,6 +76,9 @@ public class HostBlackListsValidator {
         int inicio = 0;
         int delta = serverCount / numThreads;
         int fin = delta;
+        /*
+        El proceso cambia un poco dependiendo de que la cantidad de hilos sea par o impar.
+         */
         if (numThreads % 2 == 1){
             for (int i = 0; i < numThreads - 1; i++){
                 threads.add(new BlackListThread(inicio, fin, ipaddress));
@@ -94,20 +100,23 @@ public class HostBlackListsValidator {
         int checkedListsCount = 0;
         for (int i = 0; i < numThreads; i++) {
             BlackListThread obj = threads.get(i);
-            checkedListsCount +=obj.getCheckedListsCount();
+            checkedListsCount += obj.getCheckedListsCount();
             try{
                 obj.join();
                 blackListOcurrences.addAll(obj.getBlackListOcurrences());
+                /*
+               En caso de que se compruebe que la IP no es confiable se termina el proceso.
+                 */
+                if (blackListOcurrences.size()>=BLACK_LIST_ALARM_COUNT){
+                    skds.reportAsNotTrustworthy(ipaddress);
+                    LOG.log(Level.INFO, "Checked Black Lists:{0} of {1}", new Object[]{checkedListsCount, skds.getRegisteredServersCount()});
+                    return blackListOcurrences;
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-        if (blackListOcurrences.size()>=BLACK_LIST_ALARM_COUNT){
-            skds.reportAsNotTrustworthy(ipaddress);
-        }
-        else{
             skds.reportAsTrustworthy(ipaddress);
-        }
 
         LOG.log(Level.INFO, "Checked Black Lists:{0} of {1}", new Object[]{checkedListsCount, skds.getRegisteredServersCount()});
 

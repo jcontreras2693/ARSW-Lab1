@@ -6,6 +6,8 @@
 package edu.eci.arsw.blacklistvalidator;
 
 import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,11 +37,11 @@ public class HostBlackListsValidator {
         
         int ocurrencesCount=0;
         
-        HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
+        HostBlacklistsDataSourceFacade skds = HostBlacklistsDataSourceFacade.getInstance();
         
         int checkedListsCount=0;
         
-        for (int i=0;i<skds.getRegisteredServersCount() && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
+        for (int i=0;i < skds.getRegisteredServersCount() && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
             checkedListsCount++;
             
             if (skds.isInBlackListServer(i, ipaddress)){
@@ -61,7 +63,26 @@ public class HostBlackListsValidator {
         
         return blackListOcurrences;
     }
-    
+
+    public List<Integer> checkHost(String ipaddress, int numThreads){
+        ArrayList<BlackListThread> threads = new ArrayList<BlackListThread>();
+        ArrayList<Integer> blackListOcurrences= new ArrayList<Integer>();
+        HostBlacklistsDataSourceFacade skds = HostBlacklistsDataSourceFacade.getInstance();
+        int serverCount = skds.getRegisteredServersCount();
+        int inicio = 0;
+        int fin = serverCount / numThreads;
+        for (int i = 0; i < numThreads; i++){
+            BlackListThread obj = new BlackListThread(inicio, fin, ipaddress);
+            obj.start();
+            threads.add(obj);
+            inicio = fin;
+            fin += fin;
+        }
+        for (int i = 0; i < numThreads; i++) {
+            blackListOcurrences.addAll(threads.get(i).getBlackListOcurrences());
+        }
+        return blackListOcurrences;
+    }
     
     private static final Logger LOG = Logger.getLogger(HostBlackListsValidator.class.getName());
     

@@ -88,11 +88,18 @@ Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tie
 
 1. Según la [ley de Amdahls](https://www.pugetsystems.com/labs/articles/Estimating-CPU-Performance-using-Amdahls-Law-619/#WhatisAmdahlsLaw?):
 
-	![](img/ahmdahls.png), donde _S(n)_ es el mejoramiento teórico del desempeño, _P_ la fracción paralelizable del algoritmo, y _n_ el número de hilos, a mayor _n_, mayor debería ser dicha mejora. Por qué el mejor desempeño no se logra con los 500 hilos?, cómo se compara este desempeño cuando se usan 200?. 
+	![](img/ahmdahls.png), donde _S(n)_ es el mejoramiento teórico del desempeño, _P_ la fracción paralelizable del algoritmo, y _n_ el número de hilos, a mayor _n_, mayor debería ser dicha mejora. Por qué el mejor desempeño no se logra con los 500 hilos?, cómo se compara este desempeño cuando se usan 200?.
+	 
+	- En nuestro código el valor de P sería 0.23 o un 23%. Cuándo se remplazan los valores en la función tomando a n como 500 el valor que nos arroja es de 1.2979 aproximadamente, por otro lado cuando se usa a n como 200 el valor cambia a 1.2967.
 
 2. Cómo se comporta la solución usando tantos hilos de procesamiento como núcleos comparado con el resultado de usar el doble de éste?.
+	
+	- Al usar 8 hilos que es la misma cantidad de núcleos nos da un valor de 1.2519, al usar 16 hilos nos da un valor de 1.2749 lo que nos muestra una mayor eficiencia del programa. 
 
 3. De acuerdo con lo anterior, si para este problema en lugar de 100 hilos en una sola CPU se pudiera usar 1 hilo en cada una de 100 máquinas hipotéticas, la ley de Amdahls se aplicaría mejor?. Si en lugar de esto se usaran c hilos en 100/c máquinas distribuidas (siendo c es el número de núcleos de dichas máquinas), se mejoraría?. Explique su respuesta.
 
+	- Al usar 100 hilos en una sola CPU nos da 1.2948.
+    - Si se usa solo un hilo nos da 1 pero al ser 100 máquinas hipotéticas corriendo el proceso al mismo tiempo es como si se usaran 100 hilos y de esa forma la ley de Amdahls no se aplicaría mejor.
+    - Suponiendo que cada máquina tiene 4 núcleos entonces nuestro número de hilos sería 4 en 25 máquinas lo que da un total de 100 hilos, nuevamente el resultado sería el mismo.
 
-
+**Miguel Tellez | Juan David Contreras**
